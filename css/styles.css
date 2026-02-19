@@ -1,0 +1,130 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    background-color: #FFFDF6; 
+    color: #1B4332;
+
+    > .main-header {
+        background-color: #1B4332;
+        
+        > .logo-container {
+            display: none; 
+        }
+
+        > .menu-button {
+            display: block;
+            padding: 15px;
+            background-color: #1B4332; 
+            color: #FFB703;
+            text-align: right;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        > .menu-checkbox {
+            display: none;
+        }
+
+        > .main-nav {
+            display: none; 
+            background-color: #2D6A4F;
+
+            > ul {
+                list-style: none;
+                > li {
+                    border-bottom: 1px solid #40916C;
+                    > a {
+                        display: block;
+                        padding: 15px;
+                        color: #D8F3DC;
+                        text-decoration: none;
+                    }
+                    /* NO FUNCIONA ESTE HOVER */
+                    > a:hover {
+                        background-color: #FFB703;
+                        color: #1B4332;
+                    }
+                }
+            }
+        }
+
+        > .menu-checkbox:checked ~ .main-nav {
+            display: block;
+        }
+    }
+
+    > main {
+        padding: 40px 20px;
+        min-height: 70vh;
+        h2 {
+            color: #1B4332;
+            margin-bottom: 15px;
+        }
+    }
+
+    > .main-footer {
+        background-color: #1B4332;
+        color: #D8F3DC;
+        padding: 30px;
+        text-align: center;
+        border-top: 5px solid #FFB703;
+        
+        > p > a {
+            color: #FFB703;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    }
+}
+
+
+@media all and (min-width: 415px) {
+    body {
+        > .main-header {
+            > .logo-container {
+                display: flex;
+                align-items: center;
+                padding: 25px;
+                background-color: #D8F3DC; 
+                color: #1B4332;
+                
+                .logo-img { width: 80px; }
+                .site-info { margin-left: 20px; }
+                .site-title { color: #1B4332; }
+                .site-subtitle { color: #2D6A4F; }
+            }
+
+            > .menu-button {
+                display: none;
+            }
+
+            > .main-nav {
+                display: block; 
+                background-color: #1B4332;
+
+                > ul {
+                    display: flex;
+                    justify-content: center;
+                    gap: 20px;
+                    
+                    > li {
+                        border: none;
+                        > a {
+                            transition: 0.3s;
+                            padding: 20px;
+                        }
+                        > a:hover {
+                            background-color: #FFB703;
+                            color: #1B4332;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
