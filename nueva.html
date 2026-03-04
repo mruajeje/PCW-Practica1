@@ -45,9 +45,87 @@
         </nav>
     </header>
 
-    <main>
-        <h2>Página Maestra</h2>
-        <p>Este contenido se reemplaza en cada archivo.</p>
+    <main class="new-activity-page">
+        <div class="form-container wide-container">
+            <h2>Publicar Nueva Actividad</h2>
+            <p>Completa los detalles de tu experiencia</p>
+
+            <form action="#" method="POST" class="auth-form">
+                
+                <div class="form-group">
+                    <label for="nombre">Nombre de la actividad *</label>
+                    <input type="text" id="nombre" name="nombre" maxlength="200" required placeholder="Ej: Senderismo por la Sierra">
+                </div>
+
+                <div class="form-group">
+                    <label for="lugar">Lugar *</label>
+                    <input type="text" id="lugar" name="lugar" required placeholder="Ciudad o ubicación específica">
+                </div>
+
+                <div class="form-group">
+                    <label for="descripcion">Descripción de la experiencia *</label>
+                    <textarea id="descripcion" name="descripcion" rows="4" required placeholder="Cuéntanos de qué trata..."></textarea>
+                </div>
+
+                <div class="form-group category-group">
+                    <label for="category-input">Categorías (Opcional)</label>
+                    <div class="input-with-btn">
+                        <input type="text" id="category-input" list="existing-categories" maxlength="100" placeholder="Escribe una categoría...">
+                        <datalist id="existing-categories">
+                            <option value="Deportes">
+                            <option value="Gastronomía">
+                            <option value="Cultura">
+                            <option value="Naturaleza">
+                        </datalist>
+                        <button type="button" class="btn-add">Añadir</button>
+                    </div>
+                    <div class="assigned-tags">
+                        <span class="tag">Naturaleza <button type="button" class="remove-tag">&times;</button></span>
+                    </div>
+                </div>
+
+                <section class="photos-management">
+                    <h3>Fotos:</h3>
+                    
+                    <article class="photo-card-empty">
+                        <h4>Añadir ficha</h4>
+                        <div class="photo-card-layout">
+                            <div class="photo-preview-box">
+                                <img src="img/ficha.png" alt="Previsualización" class="img-placeholder">
+                            </div>
+                            <div class="photo-inputs">
+                                <textarea name="foto-desc" maxlength="250" required placeholder="Descripción de la foto..."></textarea>
+                                <div class="photo-actions-grid">
+                                    <button type="button" class="btn-small">Seleccionar</button>
+                                    <button type="reset" class="btn-small">Limpiar</button>
+                                    <button type="button" class="btn-small btn-main">Añadir foto</button>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <h4>Fotos añadidas:</h4>
+                    <div class="added-photos-list">
+                        <article class="photo-item">
+                            <img src="img/actividad1.jpg" alt="Foto">
+                            <p>Dos días de esquí en Sierra Nevada</p>
+                            <button type="button" class="btn-delete"><i class="fas fa-trash"></i> Eliminar</button>
+                        </article>
+
+                        <article class="photo-item">
+                            <img src="img/ejemplo1.jpg" alt="Foto">
+                            <p>Sesión de yoga al atardecer y picnic</p>
+                            <button type="button" class="btn-delete"><i class="fas fa-trash"></i> Eliminar</button>
+                        </article>
+                    </div>
+                </section>
+
+                <div class="form-actions">
+                    <button type="reset" class="btn-secondary">Limpiar todo</button>
+                    <button type="submit" class="btn-primary">Publicar Actividad</button>
+                </div>
+            </form>
+        </div>
     </main>
 
     <footer class="main-footer">
