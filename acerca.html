@@ -45,9 +45,87 @@
         </nav>
     </header>
 
-    <main>
-        <h2>Página Maestra</h2>
-        <p>Este contenido se reemplaza en cada archivo.</p>
+    <main class="about-page">
+        <section class="doc-container">
+            <h1>Documentación de la Práctica</h1>
+            
+            <article class="info-asignatura">
+                <p>Esta es la <strong>Práctica 1</strong> de la asignatura <strong>Programación del Cliente Web</strong>, perteneciente al <strong>Grado en Ingeniería Multimedia</strong> (Curso 2025-2026).</p>
+            </article>
+
+            <section class="autores">
+                <h2>Autores</h2>
+                <div class="authors-grid">
+                    <div class="author-card">
+                        <p><strong>Nombre:</strong> Lucía Castaño Serrano</p>
+                        <p><strong>DNI:</strong> 49442032J</p>
+                        <p><strong>Email:</strong> lcs95@alu.ua.es</p>
+                        <p><strong>Grupo:</strong> Grupo 3 de prácticas</p>
+                    </div>
+                    <div class="author-card">
+                        <p><strong>Nombre:</strong> María Rives Puertas</p>
+                        <p><strong>DNI:</strong> </p>
+                        <p><strong>Email:</strong> </p>
+                        <p><strong>Grupo:</strong> Grupo 3 de prácticas</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="trabajo-realizado">
+                <h2>Trabajo Realizado</h2>
+                
+                <div class="doc-block">
+                    <h3>Partes Implementadas</h3>
+                    <ul>
+                        <li>Estructura base HTML5 válida para todas las páginas.</li>
+                        <li>Diseño Responsive Mobile First con Media Queries.</li>
+                        <li>Página de Inicio (index.html) con listado estático.</li>
+                        <li>Formularios completos en login.html y registrar.html con validaciones nativas.</li>
+                        <li>Estética unificada mediante variables CSS y Flexbox.</li>
+                    </ul>
+                </div>
+
+                <div class="doc-block">
+                    <h3>Partes No Implementadas</h3>
+                    <ul>
+                        <li>Funcionalidad de Logout (Práctica 2).</li>
+                        <li>Interacción dinámica (JavaScript) en botones y formularios (Práctica 2).</li>
+                        <li>Persistencia de datos o subida real de imágenes.</li>
+                    </ul>
+                </div>
+
+                <div class="doc-block">
+                    <h3>Incompatibilidades y Problemas</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Problema / Incompatibilidad</th>
+                                <th>Solución Aplicada</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Confusión con efectos :hover en dispositivos táctiles (móviles).</td>
+                                <td>Se optó por utilizar estados visuales más claros y se comprendió que el hover es limitado en pantallas táctiles, priorizando el diseño visual estático en móvil.</td>
+                            </tr>
+                            <tr>
+                                <td>Ajuste de imágenes de perfil circulares con diferentes proporciones.</td>
+                                <td>Uso de <code>object-fit: cover</code> para asegurar que la imagen siempre llene el círculo sin deformarse.</td>
+                            </tr>
+                            <tr>
+                                <td>Sincronización de estilos compartidos entre Login y Registro.</td>
+                                <td>Refactorización del CSS para extraer clases comunes (.form-container, .auth-form) y evitar duplicidad de código.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="doc-block">
+                    <h3>Información Adicional</h3>
+                    <p>Se ha prestado especial atención a la accesibilidad mediante el uso de etiquetas semánticas y el contraste de colores para cumplir con los estándares de diseño multimedia.</p>
+                </div>
+            </section>
+        </section>
     </main>
 
     <footer class="main-footer">
