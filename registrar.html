@@ -23,6 +23,7 @@
                 </a>
                 <div class="site-info">
                     <h1 class="site-title">PlanB</h1>
+                    <h2 class="site-subtitle">Nuevas actividades te esperan</h2>
                 </div>
             </div>
 
@@ -61,11 +62,6 @@
                         placeholder="Nombre de usuario">
                 </div>
 
-                <div class="form-group">
-                    <label for="email">Email *</label>
-                    <input type="email" id="email" name="email" required placeholder="Correo electrónico">
-                </div>
-
                 <div class="form-group password-wrapper">
                     <label for="password">Contraseña *</label>
                     <div class="input-with-btn">
@@ -91,9 +87,14 @@
                     </div>
                 </div>
 
+                <div class="form-group">
+                    <label for="email">Email *</label>
+                    <input type="email" id="email" name="email" required placeholder="Correo electrónico">
+                </div>
+
                 <div class="form-group profile-photo-section">
                     <label>Foto de usuario</label>
-                    <div class="photo-preview-container">
+                    <div class="photo-preview-container" onclick="document.getElementById('user-photo').click()" style="cursor: pointer;" title="Haz clic para cambiar la foto">
                         <img src="./img/usuarioRegistro.png" alt="Previsualización" id="photo-preview" class="user-img-preview">
                     </div>
                     <div class="photo-actions">

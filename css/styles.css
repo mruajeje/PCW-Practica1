@@ -1,29 +1,27 @@
 * {
-    /* El box-sizing hace que los bordes y el padding no aumenten el tamaño total de las cajas */
     box-sizing: border-box;
     margin: 0;
     padding: 0;
     font-family: 'Roboto', sans-serif;
 }
 
-/*ESTRUCTURA PRINCIPAL*/
 body {
     background-color: #FFFDF6;
     color: #1B4332;
-    /* Usamos flexbox en columna para poder empujar el footer hacia abajo del todo */
+    /* flexbox en columna para poder empujar el footer hacia abajo del todo */
     display: flex;
     flex-direction: column;
-    min-height: 100vh; /* Ocupa al menos el 100% de la altura de la pantalla */
+    min-height: 100vh;
 
-    /*CABECERA*/
+    /* ···· HEADER COMÚN ···· */
     > header.main-header {
         background-color: #1B4332;
-        position: sticky; /* Hace que el menú se quede pegado arriba al hacer scroll */
+        position: sticky; /* menú pegado arriba al hacer scroll */
         top: 0;
-        z-index: 1000; /* Asegura que la cabecera pase por encima de las fotos al hacer scroll */
+        z-index: 1000; /* aseguramos que la cabecera pasa por encima de las fotos al hacer scroll */
         margin-bottom: 10px;
 
-        /* Parte superior: Logo y Botón hamburguesa */
+        /* logo y botón hamburguesa */
         .header-top {
             display: flex;
             justify-content: space-between;
@@ -46,7 +44,7 @@ body {
                     margin-left: 10px;
                 }
 
-                /* Subtítulo oculto en móvil por falta de espacio */
+                /* subtítulo oculto en móvil */
                 .site-subtitle {
                     display: none;
                 }
@@ -59,12 +57,12 @@ body {
             }
         }
 
-        /* Checkbox invisible que hace funcionar el menú sin Javascript */
+        /* checkbox invisible qpara ver el menú sin Javascript */
         .menu-checkbox {
             display: none;
         }
 
-        /* Menú de navegación (oculto por defecto en móvil) */
+        /* menú de navegación (oculto por defecto en móvil) */
         .main-nav {
             display: none;
             background-color: #2D6A4F;
@@ -81,13 +79,12 @@ body {
                         padding: 15px 20px;
                         color: #D8F3DC;
                         text-decoration: none;
-                        transition: all 0.3s ease; /* Animación suave al pasar el ratón */
+                        transition: all 0.3s ease;
 
                         i {
                             margin-right: 10px;
                         }
 
-                        /* Efecto hover del menú */
                         &:hover {
                             background-color: #FFB703 !important;
                             color: #1B4332 !important;
@@ -97,25 +94,25 @@ body {
             }
         }
 
-        /* Truco CSS: Si el checkbox está marcado, muestra el menú contiguo (~) */
+        /* checkbox  marcado, mostramos menú contiguo (~) */
         .menu-checkbox:checked ~ .main-nav {
             display: block;
         }
     }
 
-    /*CONTENEDOR PRINCIPAL */
+    /* ···· CONTENEDOR PRINCIPAL ···· */
     > main {
         margin-bottom: 10px;
-        flex: 1; /* Esta es la magia que empuja al footer hacia abajo si hay poco contenido */
+        flex: 1; /* empujamos footer hacia abajo si hay poco contenido */
 
-        /*ESTILOS GLOBALES DE FORMULARIO
-           Al ponerlos aquí, se aplican a login, registro, nueva actividad... */
+        /* ···· FORM COMÚN ····
+           se aplican a login.html, registrar.html, nueva.html... */
         .form-container {
             background-color: #D8F3DC;
             padding: 30px;
             border-radius: 8px;
             width: 100%;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1); /* Sombra suave para dar profundidad */
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 
             h2 {
                 color: #1B4332;
@@ -133,7 +130,7 @@ body {
         .form-group {
             margin-bottom: 15px;
             display: flex;
-            flex-direction: column; /* Etiqueta arriba, input abajo */
+            flex-direction: column; /* etiqueta arriba, input abajo */
 
             label {
                 font-weight: bold;
@@ -142,7 +139,7 @@ body {
                 color: #1B4332;
             }
 
-            /* Estilo unificado para todos los tipos de cajas de texto */
+            /* estilo para todos los tipos de cajas de texto */
             input[type="text"], 
             input[type="password"], 
             input[type="email"], 
@@ -153,7 +150,7 @@ body {
                 padding: 12px;
                 border: 2px solid #1B4332;
                 border-radius: 4px;
-                outline: none; /* Quita el borde azul feo de Chrome por defecto */
+                outline: none;
                 background-color: #FFFDF6;
                 transition: 0.3s;
                 width: 100%;
@@ -163,7 +160,6 @@ body {
                     border-color: #FFB703;
                 }
 
-                /* Resaltado amarillo al escribir dentro */
                 &:focus {
                     border-color: #FFB703;
                     box-shadow: 0 0 8px rgba(255, 183, 3, 0.4);
@@ -171,19 +167,19 @@ body {
             }
 
             textarea {
-                resize: vertical; /* Solo permite al usuario estirar la caja hacia abajo */
+                resize: vertical; /* permitimos al usuario estirar la caja SOLO hacia abajo */
                 min-height: 80px;
             }
         }
 
-        /* Botones de enviar/borrar */
+        /* botones enviar/borrar */
         .form-actions {
             display: flex;
             gap: 10px;
             margin-top: 20px;
 
             button {
-                flex: 1; /* Hacen que ambos botones midan exactamente lo mismo */
+                flex: 1; /* ambos botones miden lo mismo */
                 padding: 12px;
                 border: none;
                 border-radius: 4px;
@@ -211,17 +207,17 @@ body {
             }
         }
 
-        /*PÁGINAS DE LOGIN Y REGISTRO
-           El '&' se traduce como 'main.login-page' */
+        /* ···· login.html y registrar.html ····
+           El '&' es 'main.login-page' */
         &.login-page, 
         &.register-page {
             padding: 40px 20px;
             display: flex;
             justify-content: center;
-            align-items: flex-start; /* Evita que el formulario se estire verticalmente de más */
+            align-items: flex-start; /* evitamos que el formulario se estire verticalmente de más */
 
             .form-container {
-                max-width: 450px; /* Limita el ancho para que no quede gigante en PC */
+                max-width: 450px; /* limitamos ancho para que no quede gigante en ordenador */
             }
             
             .auth-form {
@@ -254,14 +250,14 @@ body {
                 }
             }
             
-            /* Campo de contraseña con botón de "ver/ocultar" al lado */
+            /* contraseña con "ver/ocultar" al lado */
             .password-wrapper {
                 .input-with-btn {
                     display: flex;
                     gap: 5px;
 
                     input {
-                        flex: 1; /* El input se lleva todo el espacio sobrante */
+                        flex: 1; /* el input se lleva todo el espacio sobrante */
                     }
 
                     .toggle-password {
@@ -279,7 +275,7 @@ body {
                 }
             }
 
-            /* Zona para subir la foto de perfil en registro */
+            /* subir foto de perfil en registrar.html */
             .profile-photo-section {
                 text-align: center;
                 margin: 20px 0;
@@ -289,7 +285,7 @@ body {
                     width: 100px;
                     height: 100px;
                     border: 2px dashed #1B4332;
-                    border-radius: 50%; /* Lo hace un círculo perfecto */
+                    border-radius: 50%;
                     overflow: hidden;
                     background-color: #FFFDF6;
 
@@ -331,7 +327,7 @@ body {
             }
         }
 
-        /*PÁGINAS INDEX Y BUSCAR (Cuadrícula de actividades)*/
+        /* ···· index.html y buscar.html, cuadrícula de actividades ···· */
         &.index-page, 
         &.search-page {
             h2 {
@@ -342,7 +338,7 @@ body {
 
             .activities-grid {
                 display: flex;
-                flex-direction: column; /* Móvil: una tarjeta debajo de otra */
+                flex-direction: column; /* en móvil -> una tarjeta debajo de otra */
                 padding: 10px 20px;
 
                 .activity-card {
@@ -353,7 +349,6 @@ body {
                     margin-bottom: 25px;
                     transition: transform 0.3s ease;
 
-                    /* Efecto flotante al pasar el ratón */
                     &:hover {
                         transform: translateY(-5px);
                         box-shadow: 0 6px 12px rgba(0,0,0,0.15);
@@ -363,7 +358,7 @@ body {
                         .activity-img {
                             width: 100%;
                             height: 200px;
-                            object-fit: cover; /* Evita que la foto se deforme */
+                            object-fit: cover;
                             border-radius: 8px 8px 0 0;
                             display: block;
                         }
@@ -374,9 +369,9 @@ body {
 
                         .activity-title {
                             margin-bottom: 15px;
-                            white-space: nowrap; /* Evita que el título baje de línea */
+                            white-space: nowrap; /* evitamos que el título se baje de línea */
                             overflow: hidden;
-                            text-overflow: ellipsis; /* Pone '...' si el título es muy largo */
+                            text-overflow: ellipsis; /* '...' si el título es muy largo */
 
                             a {
                                 color: #1B4332;
@@ -428,7 +423,7 @@ body {
             }
         }
 
-        /*PÁGINA DE BÚSQUEDA*/
+        /* ···· buscar.html ···· */
         &.search-page {
             .search-container {
                 background-color: #D8F3DC;
@@ -469,7 +464,6 @@ body {
                 }
             }
 
-            /* Bloque visual para el filtro de estrellas */
             .rating-range {
                 border: 1px solid #1B4332;
                 padding: 10px;
@@ -525,11 +519,11 @@ body {
             }
         }
 
-        /* DETALLE DE ACTIVIDAD */
+        /* ···· actividad.html ···· */
         &.activity-detail-page {
             padding: 20px;
             max-width: 900px;
-            margin: 0 auto; /* Centra el contenido en pantallas grandes */
+            margin: 0 auto; /* centramos contenido en pantallas grandes */
             
             .activity-header {
                 h2 {
@@ -537,13 +531,13 @@ body {
                     margin-bottom: 20px;
                 }
 
-                /* Caja verde de metadatos (Lugar, Autor, etc.) */
+                /* metadatos (Lugar, Autor, etc.) */
                 .activity-meta-links {
                     background-color: #D8F3DC;
                     padding: 15px;
                     border-radius: 8px;
                     display: flex;
-                    flex-direction: column; /* Móvil: en forma de lista vertical */
+                    flex-direction: column; /* en móvil -> forma de lista vertical */
                     gap: 10px;
 
                     .meta-item {
@@ -578,7 +572,7 @@ body {
 
             .activity-description {
                 margin: 30px 0;
-                line-height: 1.6; /* Mejora la lectura del texto largo */
+                line-height: 1.6; /* mejoramos la lectura del texto largo */
             }
 
             .activity-gallery {
@@ -591,7 +585,7 @@ body {
                     border-radius: 10px;
                     margin-bottom: 10px;
 
-                    /* Tamaño de la foto principal, forzado para móvil */
+                    /* famaño foto principal, forzado para móvil */
                     .main-photo {
                         width: 100%;
                         height: 250px;
@@ -600,7 +594,7 @@ body {
                         box-shadow: 0 4px 6px rgba(0,0,0,0.1);
                     }
 
-                    /* Efecto lupa al pasar el ratón */
+                    /* zoom al pasar el ratón */
                     .zoom-link {
                         display: block;
                         cursor: zoom-in;
@@ -608,7 +602,7 @@ body {
                         border-radius: 8px;
 
                         &:hover .main-photo {
-                            transform: scale(1.02); /* Ligero aumento */
+                            transform: scale(1.02); /* ampliamos un poc */
                             opacity: 0.9;
                         }
                     }
@@ -664,7 +658,7 @@ body {
                             gap: 10px;
                             margin-bottom: 10px;
 
-                            /* Círculo simulando avatar del usuario */
+                            /* avatar del usuario */
                             .user-avatar-placeholder {
                                 width: 40px;
                                 height: 40px;
@@ -699,7 +693,7 @@ body {
                     }
                 }
 
-                /* Caja amarilla que avisa si no estás logueado */
+                /* warning de logueo para poder comentar */
                 .login-warning {
                     background-color: #ffeeba;
                     color: #856404;
@@ -753,7 +747,7 @@ body {
             }
         }
 
-        /*ACERCA DE*/
+        /* ···· acerca.html ···· */
         &.about-page {
             padding: 40px 20px;
             display: flex;
@@ -840,13 +834,13 @@ body {
             }
         }
 
-        /*NUEVA ACTIVIDAD*/
+        /* ···· nueva.html ···· */
         &.new-activity-page {
             padding: 40px 20px;
             display: flex;
             justify-content: center;
 
-            /* Ancho mayor para que quepan bien dos columnas en PC */
+            /* ancho mayor para que quepan bien dos columnas en ordenador */
             .form-container {
                 max-width: 700px;
             }
@@ -856,7 +850,7 @@ body {
                 width: 100%;
             }
             
-            /* Campo de añadir categorías (input + botón lateral) */
+            /* añadir categorías (input + botón lateral) */
             .input-with-btn {
                 display: flex;
                 gap: 5px;
@@ -876,7 +870,7 @@ body {
                 }
             }
 
-            /* "Píldoras" de las categorías ya añadidas */
+            /* etiquetas de las categorías ya añadidas */
             .assigned-tags {
                 display: flex;
                 flex-wrap: wrap;
@@ -902,7 +896,7 @@ body {
                 }
             }
             
-            /* Zona de simulación de subida de fotos */
+            /* subida de fotos */
             .photos-management {
                 margin-top: 30px;
 
@@ -919,13 +913,14 @@ body {
                 
                 .photo-card-empty {
                     background: #FFFDF6;
+                    padding: 20px;
                     border: 2px dashed #1B4332;
                     padding: 15px;
                     border-radius: 6px;
 
                     .photo-card-layout {
                         display: flex;
-                        flex-direction: column; /* Móvil: bloque de imagen arriba, botones abajo */
+                        flex-direction: column; /* en móvil -> imagen arriba, botones abajo */
                         gap: 15px;
                     } 
 
@@ -946,6 +941,17 @@ body {
                         gap: 10px;
                     }
 
+                        textarea {
+                            padding: 12px;
+                            border: 2px solid #1B4332;
+                            border-radius: 4px;
+                            outline: none;
+                            background-color: #FFFDF6;
+                            transition: 0.3s;
+                            width: 100%;
+                            font-family: inherit;
+                        }
+
                     /* 3 botones (Seleccionar, Limpiar, Añadir) en cuadrícula */
                     .photo-actions-grid {
                         display: grid;
@@ -959,19 +965,40 @@ body {
                             border-radius: 4px;
                             background: white;
                             cursor: pointer;
+                            background-color: #FFFDF6;
+                            color: #1B4332;
+                            transition: 0.3s;
+
+                            &:hover {
+                                background-color: #1B4332;
+                                color: #D8F3DC;
+                            }
+
+                            &.btn-secondary {
+                                background-color: #FFB703;
+                                color: #1B4332;
+
+                                &:hover {
+                                    background-color: #e0a100;
+                                }
+                            }
 
                             &.btn-main {
                                 background: #1B4332;
                                 color: white;
+
+                                &:hover {
+                                    background-color: #235640;
+                                }
                             }
                         }
                     }
                 }
                 
-                /* Miniaturas de fotos añadidas */
+                /* miniaturas de fotos añadidas */
                 .added-photos-list {
                     display: grid;
-                    /* Se adapta solo: crea columnas de al menos 150px según el ancho disponible */
+                    /* creamos columnas de al menos 150px según el ancho disponible */
                     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
                     gap: 15px;
                     margin-top: 15px;
@@ -997,7 +1024,7 @@ body {
 
                         .btn-delete {
                             width: 100%;
-                            background: #bc4749; /* Rojo para botón de eliminar */
+                            background: #bc4749;
                             color: white;
                             border: none;
                             padding: 5px;
@@ -1010,7 +1037,7 @@ body {
         }
     }
 
-    /*FOOTER (Hijo directo de body)*/
+    /* ···· FOOTER COMÚN ····*/
     > footer.main-footer {
         background-color: #1B4332;
         color: #D8F3DC;
@@ -1035,11 +1062,11 @@ body {
     }
 }
 
-/* MEDIA QUERIES*/
 
+/* MEDIA QUERIES*/
 /* 415px: MÓVIL GRANDE / TABLET PEQUEÑA */
 @media all and (min-width: 415px) {
-    /* La cabecera se pone en horizontal (Logo y Título a la izq, Menú a la derecha) */
+    /* header en horizontal (logo y título a la izq, menú a la derecha) */
     body > header.main-header {
         display: flex;
         justify-content: space-between;
@@ -1057,7 +1084,7 @@ body {
                 font-size: 1.5rem;
             }
 
-            /* Se muestra el subtítulo porque hay espacio */
+            /* mostramos subtítulo escondido en móvil */
             .logo-container .site-subtitle {
                 display: block;
                 color: #D8F3DC;
@@ -1065,13 +1092,13 @@ body {
                 margin-left: 10px;
             }
 
-            /* Ocultamos el icono de las 3 rayas del menú móvil */
+            /* ocultamos el icono del menú móvil */
             .menu-button {
                 display: none;
             }
         }
 
-        /* Desplegamos el menú siempre, anulando el comportamiento móvil */
+        /* desplegamos el menú siempre, anulando el comportamiento móvil */
         .main-nav {
             display: block;
             width: auto;
@@ -1094,7 +1121,7 @@ body {
         }
     }
 
-    /* La lista de actividades pasa de 1 a 2 columnas */
+    /* ···· index.html -> lista de actividades de 1 a 2 columnas ···· */
     body > main.index-page .activities-grid,
     body > main.search-page .activities-grid {
         display: grid;
@@ -1104,9 +1131,10 @@ body {
     }
 }
 
+
 /* 600px: TABLET NORMAL */
 @media (min-width: 600px) {
-    /* Formulario de búsqueda: los filtros se ponen en línea horizontal */
+    /* ···· buscar.html -> los filtros se ponen en línea horizontal ···· */
     body > main.search-page {
         .filters-row {
             display: flex;
@@ -1118,7 +1146,7 @@ body {
         }
     }
 
-    /* Nueva Actividad: El cuadro de subir foto pasa de apilarse a ponerse lado a lado */
+    /* ···· nueva.html -> fotos añadidas pasa de apilarse a ponerse al lado */
     body > main.new-activity-page .photos-management .photo-card-empty .photo-card-layout {
         flex-direction: row; 
     }
@@ -1126,8 +1154,9 @@ body {
 
 /* 768px: ESCRITORIO PEQUEÑO */
 @media (min-width: 768px) {
+    /* ···· actividad.html ···· */
     body > main.activity-detail-page {
-        /* Los datos de la actividad (Lugar, Fecha, etc) dejan de ser una lista vertical */
+        /* los metadatos dejan de ser lista vertical */
         .activity-header .activity-meta-links {
             flex-direction: row;
             flex-wrap: wrap;
@@ -1135,7 +1164,7 @@ body {
             align-items: center;
         }
 
-        /* La foto principal crece para aprovechar la pantalla */
+        /* foto principal mayor para aprovechar pantalla */
         .activity-gallery .photo-viewer .main-photo {
             height: 400px;
         }
@@ -1144,7 +1173,7 @@ body {
 
 /* 900px: ESCRITORIO GRANDE */
 @media all and (min-width: 900px) {
-    /* La lista de actividades pasa de 2 a 3 columnas máximo */
+    /* ···· index.html -> lista de actividades pasa de 2 a 3 columnas como máximo ···· */
     body > main.index-page .activities-grid, 
     body > main.search-page .activities-grid {
         grid-template-columns: repeat(3, 1fr);

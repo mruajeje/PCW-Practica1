@@ -23,6 +23,7 @@
                 </a>
                 <div class="site-info">
                     <h1 class="site-title">PlanB</h1>
+                    <h2 class="site-subtitle">Nuevas actividades te esperan</h2>
                 </div>
             </div>
 
@@ -90,14 +91,15 @@
                     <article class="photo-card-empty">
                         <h4>Añadir ficha</h4>
                         <div class="photo-card-layout">
-                            <div class="photo-preview-box">
+                            <input type="file" id="subir-ficha" accept="image/*" hidden>
+                            <div class="photo-preview-box" onclick="document.getElementById('subir-ficha').click()" style="cursor: pointer;" title="Haga clic para seleccionar una foto">
                                 <img src="img/ficha.png" alt="Previsualización" class="img-placeholder">
                             </div>
                             <div class="photo-inputs">
                                 <textarea name="foto-desc" maxlength="250" required placeholder="Descripción de la foto..."></textarea>
                                 <div class="photo-actions-grid">
-                                    <button type="button" class="btn-small">Seleccionar</button>
-                                    <button type="reset" class="btn-small">Limpiar</button>
+                                    <button type="button" class="btn-small" onclick="document.getElementById('subir-ficha').click()">Seleccionar</button>
+                                    <button type="button" class="btn-small btn-secondary">Limpiar</button>
                                     <button type="button" class="btn-small btn-main">Añadir foto</button>
                                 </div>
                             </div>
