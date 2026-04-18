@@ -1,0 +1,71 @@
+Options +FollowSymLinks
+RewriteEngine On
+
+# Opción A: Para la mayoría de servidores
+RewriteCond %{HTTP:Authorization} ^(.*)
+RewriteRule .* - [e=HTTP_AUTHORIZATION:%1]
+# Opción B: Si la A no funciona, prueba esta alternativa
+# RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+# Ruta completa desde htdocs hasta la carpeta "api".
+# Si el path hasta la carpeta es C:\xampp\htdocs\practica2\api,
+# habría que poner lo siguiente: RewriteBase /practica2/api/
+RewriteBase /pcw/practica2/api/
+
+##################################################
+### REGLAS PARA USUARIO
+##################################################
+### PREGUNTAR DISPONIBILIDAD DE LOGIN
+# Regla que redirige a api/get/usuarios.php
+# Con esta línea de abajo, sólo acepta peticiones GET
+RewriteCond %{THE_REQUEST} ^GET
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^usuarios(.*)$ get/usuarios.php?_rec_=$1&%{QUERY_STRING} [L]
+
+### HACER LOGIN
+# Regla que redirige a api/post/usuarios/login.php
+# Con esta línea de abajo, sólo acepta peticiones POST
+RewriteCond %{THE_REQUEST} ^POST
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^usuarios/login$ post/usuarios/login.php [L]
+
+### HACER REGISTRO
+# Regla que redirige a api/post/usuarios/registro.php
+# Con esta línea de abajo, sólo acepta peticiones POST
+RewriteCond %{THE_REQUEST} ^POST
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^usuarios/registrar$ post/usuarios/registro.php [L]
+
+##################################################
+### REGLAS PARA ACTIVIDADES
+##################################################
+### PEDIR INFORMACIÓN SOBRE ACTIVIDADES
+# Regla que redirige a api/get/actividades.php
+# Con esta línea de abajo, sólo acepta peticiones GET
+RewriteCond %{THE_REQUEST} ^GET
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^actividades(.*)$ get/actividades.php?_rec_=$1&%{QUERY_STRING} [L]
+
+### DAR DE ALTA UNA ACTIVIDAD O DEJAR UN COMENTARIO
+# Regla que redirige a api/post/actividades.php
+# Con esta línea de abajo, sólo acepta peticiones POST
+RewriteCond %{THE_REQUEST} ^POST
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^actividades(.*)$ post/actividades.php?_rec_=$1&%{QUERY_STRING} [L]
+
+##################################################
+### REGLAS PARA CATEGORIAS
+##################################################
+### PEDIR INFORMACIÓN SOBRE CATEGORIAS
+# Regla que redirige a api/get/categorias.php
+# Con esta línea de abajo, sólo acepta peticiones GET
+
+RewriteCond %{THE_REQUEST} ^GET
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^categorias(.*)$ get/categorias.php?_rec_=$1&%{QUERY_STRING} [L]
