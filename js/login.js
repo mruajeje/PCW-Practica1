@@ -42,20 +42,14 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     loginForm.addEventListener('submit', async (e) => {
-        e.preventDefault(); // Evitamos recargar la página
+        e.preventDefault(); 
 
-        // 1. EXTRACCIÓN BRUTAL DE DATOS (Campo por campo)
+        // 1. Capturamos los datos limpios
         const valLogin = document.getElementById('login').value;
         const valPwd = document.getElementById('pwd').value;
         const checkRecordar = document.querySelector('input[name="recordar"]').checked;
 
-        // Comprobación visual en consola
-        console.log("=== DATOS CAPTURADOS ===");
-        console.log("Login:", valLogin);
-        console.log("Pwd:", valPwd);
-        console.log("Recordar:", checkRecordar);
-
-        // 2. EMPAQUETADO PARA PHP (URLSearchParams puro)
+        // 2. Preparamos el formato exacto que pide el profesor
         const dataForPHP = new URLSearchParams();
         dataForPHP.append('login', valLogin);
         dataForPHP.append('pwd', valPwd);
@@ -64,15 +58,20 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         try {
-            // 3. ENVÍO AL SERVIDOR
+            // 3. Petición con la cabecera correcta (¡Aquí ya no habrá línea roja!)
             const response = await fetch('api/usuarios/login', {
                 method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
                 body: dataForPHP 
             });
 
             const data = await response.json();
 
-            // 4. GESTIÓN DE LA RESPUESTA
+
+            console.log("RESPUESTA DEL SERVIDOR:", data);
+            // 4. Gestionamos el resultado
             if (data.RESULTADO === 'OK') {
                 sessionStorage.clear();
                 localStorage.clear();
@@ -91,7 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
         } catch (error) {
-            mostrarModal('Error Fatal', 'El servidor no responde. ¿Está Apache encendido en XAMPP?', false);
-            console.error('Error de fetch:', error);
+            mostrarModal('Error', 'No se pudo conectar con el servidor.', false);
+            console.error(error);
         }
     });
