@@ -1,4 +1,3 @@
-document.addEventListener('DOMContentLoaded', () => {
     // 1. Buscamos el enlace de Logout por su texto o atributo href
     // En tu menú actual, el href apunta a "index.html", vamos a interceptarlo.
     const menuLinks = document.querySelectorAll('.main-nav a');
@@ -24,4 +23,3 @@ document.addEventListener('DOMContentLoaded', () => {
             window.location.href = 'index.html';
         });
     }
-});

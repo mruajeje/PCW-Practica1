@@ -1,5 +1,3 @@
-document.addEventListener('DOMContentLoaded', () => {
-    
     // 1. COMPROBAR SI YA ESTÁ LOGUEADO
     const tokenSession = sessionStorage.getItem('token');
     const tokenLocal = localStorage.getItem('token');
@@ -90,4 +88,3 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error("Error capturado:", error);
         }
     });
-});

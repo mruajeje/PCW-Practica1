@@ -1,5 +1,3 @@
-document.addEventListener('DOMContentLoaded', () => {
-    
     // 1. GESTIÓN DEL MENÚ SEGÚN EL TOKEN
     const tokenSession = sessionStorage.getItem('token');
     const tokenLocal = localStorage.getItem('token');
@@ -83,7 +81,5 @@ document.addEventListener('DOMContentLoaded', () => {
             contenedor.appendChild(card);
         });
     }
-
     // Iniciamos la carga
     cargarActividades();
-});
