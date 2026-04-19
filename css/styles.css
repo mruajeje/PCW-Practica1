@@ -1197,3 +1197,56 @@ body {
         grid-template-columns: repeat(3, 1fr);
     }
 }
+
+/* --- ESTILOS PARA MODALES --- */
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7); 
+    display: none; 
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+}
+
+.modal-content {
+    background-color: #FFFDF6;
+    padding: 30px;
+    border-radius: 12px;
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    border: 2px solid #1B4332; 
+}
+
+.modal-content h3 {
+    color: #023047;
+    margin-bottom: 10px;
+}
+
+.modal-content p {
+    margin-bottom: 25px;
+    line-height: 1.5;
+}
+
+.modal-content .btn-primary {
+    display: inline-block;
+    background-color: #FFB703;
+    color: #023047;
+    padding: 12px 25px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.modal-content .btn-primary:hover {
+    background-color: #FB8500;
+}

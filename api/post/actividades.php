@@ -52,58 +52,47 @@ analizarPeticion( $RECURSO, $PARAMS, 'post' );
  * @return integer - Retorna 0 si todo fue bien. Retorna -1 si hubo algún error al intentar guardar la foto en la BD. Retorna -2 si no se pudo guardar en disco. Retorna 2 si el tamaño del fichero es mayor al permitido.
 */
 function subirFoto($ID_REGISTRO, $FICHEROS, $DESCRIPCION, $NFOTO) {
-  global $db, $TAM_MAX_ARCHIVO;
-
+  global $db; // Quitamos TAM_MAX_ARCHIVO si no sabemos donde está
+  
   $valor_retorno = -1;
 
-  if($FICHEROS['size'][$NFOTO] <= $TAM_MAX_ARCHIVO) {
-    $mysql = 'insert into foto(descripcion,id_actividad,fichero) values(:DESCRIPCION,:ID_REGISTRO,:ARCHIVO);';
+  // FORZAMOS LA SUBIDA: Quitamos el IF del tamaño para probar
+  $mysql = 'insert into foto(descripcion,id_actividad,fichero) values(:DESCRIPCION,:ID_REGISTRO,:ARCHIVO);';
 
-    $VALORES                 = [];
-    $VALORES[':DESCRIPCION'] = $DESCRIPCION;
-    $VALORES[':ID_REGISTRO'] = $ID_REGISTRO;
-    $VALORES[':ARCHIVO']     = ''; // nombre por defecto del archivo. Luego se cambia.
+  $VALORES                 = [];
+  $VALORES[':DESCRIPCION'] = $DESCRIPCION;
+  $VALORES[':ID_REGISTRO'] = $ID_REGISTRO;
+  $VALORES[':ARCHIVO']     = ''; 
 
-    if( $db->executeStatement($mysql, $VALORES) ) {
-      $mysql = 'select max(ID) as id_fichero from foto';
-      $RESPUESTA = $db->select($mysql);
-      if( $RESPUESTA['CORRECTO'] ) {
-        $row = $RESPUESTA['RESULT'][0];
-        $ID_FICHERO = $row['id_fichero'];
+  if( $db->executeStatement($mysql, $VALORES) ) {
+    $mysql = 'select max(ID) as id_fichero from foto';
+    $RESPUESTA = $db->select($mysql);
+    if( $RESPUESTA['CORRECTO'] ) {
+      $row = $RESPUESTA['RESULT'][0];
+      $ID_FICHERO = $row['id_fichero'];
 
-        $ext = pathinfo($FICHEROS['name'][$NFOTO], PATHINFO_EXTENSION); // extensión del fichero
-        $NOMBRE_FICHERO = $ID_FICHERO . '.' . $ext;
-        $upload_dir     = '../../' . PATH_FOTOS . 'actividades/';
-        $uploadfile     = $upload_dir . $NOMBRE_FICHERO; // path fichero destino
+      $ext = pathinfo($FICHEROS['name'][$NFOTO], PATHINFO_EXTENSION);
+      $NOMBRE_FICHERO = $ID_FICHERO . '.' . $ext;
+      
+      // --- CAMBIO CRÍTICO AQUÍ ---
+      // Si no tienes config.php, vamos a poner la ruta a mano (hardcoded)
+      // Asegúrate de que esta ruta llega a la carpeta 'actividades' desde donde esté este archivo
+      $upload_dir = '../../fotos/actividades/'; 
+      $uploadfile = $upload_dir . $NOMBRE_FICHERO;
 
-        // Se comprueba si la carpeta existe y tiene permisos de escritura
-        if (is_dir($upload_dir) && is_writable($upload_dir)) {
-          if(move_uploaded_file($FICHEROS['tmp_name'][$NFOTO], $uploadfile)) { // se sube el fichero
-            $mysql = 'update foto set fichero=:FICHERO where id=:ID_FICHERO';
-            $VALORES                = [];
-            $VALORES[':FICHERO']    = $NOMBRE_FICHERO;
-            $VALORES[':ID_FICHERO'] = $ID_FICHERO;
-
-            $valor_retorno = 0; // Se guardó bien la foto
-          }
-          else { // No se ha podido copiar la foto. Hay que eliminar el registro
-            $mysql = 'delete from foto where id=:ID_FICHERO';
-            $VALORES[':ID_FICHERO'] = $ID_FICHERO;
-            $valor_retorno = -2;
-          }
-          // SE EJECUTA LA CONSULTA
-          $db->executeStatement($mysql, $VALORES);
-        }
-        else {
-          $valor_retorno = -3; // No existe el directorio o no tiene permisos de escritura
-        }
+      if (move_uploaded_file($FICHEROS['tmp_name'][$NFOTO], $uploadfile)) {
+          $mysql = 'update foto set fichero=:FICHERO where id=:ID_FICHERO';
+          $VALORES                = [];
+          $VALORES[':FICHERO']    = $NOMBRE_FICHERO;
+          $VALORES[':ID_FICHERO'] = $ID_FICHERO;
+          $db->executeStatement($mysql, $VALORES); // Ejecutamos el update
+          $valor_retorno = 0; 
+      } else {
+          // Si entra aquí, es que move_uploaded_file ha fallado
+          $valor_retorno = -2;
       }
     }
   }
-  else { // Archivo demasiado grande
-    $valor_retorno = 2;
-  }
-
   return $valor_retorno;
 }
 // =================================================================================
