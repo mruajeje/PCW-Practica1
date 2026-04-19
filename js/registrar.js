@@ -4,7 +4,7 @@ window.onload = () => {
     const inputPhoto = document.getElementById('user-photo');
     const photoPreview = document.getElementById('photo-preview');
 
-    // Funcionalidad de los botones de ojo (ver contraseña)
+    // Lógica para mostrar/ocultar contraseña
     document.querySelectorAll('.toggle-password').forEach(btn => {
         btn.onclick = (e) => {
             const input = e.currentTarget.parentElement.querySelector('input');
@@ -13,13 +13,14 @@ window.onload = () => {
         };
     });
 
-    // 1. Comprobar disponibilidad del login (Punto 6.a)
+    // 1. COMPROBAR DISPONIBILIDAD (Punto 6.a)
     inputUser.onblur = async () => {
         const login = inputUser.value.trim();
         if (login.length < 4) return;
 
         try {
-            const res = await fetch(`api/usuarios/${login}`);
+            // Llamada directa al archivo GET pasando el parámetro _rec_ [cite: 115]
+            const res = await fetch(`api/get/usuarios.php?_rec_=${login}`);
             const data = await res.json();
             const errorMsg = document.getElementById('error-login');
 
@@ -30,17 +31,19 @@ window.onload = () => {
                 errorMsg.style.display = 'none';
                 inputUser.style.borderColor = '';
             }
-        } catch (e) { console.error("Error al validar usuario", e); }
+        } catch (e) { 
+            console.error("Error al validar usuario", e); 
+        }
     };
 
-    // 2. Control de foto y límite 200KB (Punto 6.c)
+    // 2. GESTIÓN DE FOTO (Punto 6.c)
     document.getElementById('btn-trigger-upload').onclick = () => inputPhoto.click();
     document.getElementById('area-foto').onclick = () => inputPhoto.click();
 
     inputPhoto.onchange = (e) => {
         const file = e.target.files[0];
         if (file) {
-            if (file.size > 200 * 1024) { // Límite 200KB
+            if (file.size > 200 * 1024) { // Límite 200KB [cite: 115]
                 mostrarModal("Error", "La imagen no puede superar los 200KB.");
                 inputPhoto.value = '';
                 photoPreview.src = './img/usuarioRegistro.png';
@@ -52,17 +55,15 @@ window.onload = () => {
         }
     };
 
-    // Botón Eliminar Foto
     document.getElementById('remove-photo').onclick = () => {
         inputPhoto.value = '';
         photoPreview.src = './img/usuarioRegistro.png';
     };
 
-    // 3. Envío del Registro (Punto 6.d)
+    // 3. ENVÍO DEL REGISTRO (Punto 6.d)
     form.onsubmit = async (e) => {
         e.preventDefault();
 
-        // Validación de contraseñas (Punto 6.b)
         const p1 = document.getElementById('password').value;
         const p2 = document.getElementById('password-confirm').value;
 
@@ -74,16 +75,22 @@ window.onload = () => {
         const fd = new FormData(form);
 
         try {
-            const res = await fetch('api/post/usuarios/registro', {
+            // Llamada directa al archivo físico de registro [cite: 117]
+            const res = await fetch('api/post/usuarios/registro.php', {
                 method: 'POST', 
-                body: fd });
+                body: fd 
+            });
             const data = await res.json();
 
             if (data.RESULTADO === 'OK') {
-                mostrarModal("Éxito", "Usuario registrado correctamente.");
-                document.getElementById('modal-btn-cerrar').onclick = () => {
-                    window.location.href = 'login.html';
-                };
+                if (data.ERROR_FOTO) {
+                    mostrarModal("Usuario creado, pero...", data.ERROR_FOTO);
+                } else {
+                    mostrarModal("Éxito", "Usuario y foto registrados correctamente.");
+                    document.getElementById('modal-btn-cerrar').onclick = () => {
+                        window.location.href = 'login.html';
+                    };
+                }
             } else {
                 mostrarModal("Error", data.DESCRIPCION || "Error en el registro.");
             }
@@ -92,7 +99,6 @@ window.onload = () => {
         }
     };
 
-    // Función auxiliar para el Modal
     function mostrarModal(titulo, texto) {
         document.getElementById('modal-titulo').innerText = titulo;
         document.getElementById('modal-texto').innerText = texto;

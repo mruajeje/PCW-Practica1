@@ -8,6 +8,15 @@ window.onload = () => {
         return; 
     }
 
+    // --- LÓGICA DE MOSTRAR/OCULTAR CONTRASEÑA ---
+    document.querySelectorAll('.toggle-password').forEach(btn => {
+        btn.onclick = (e) => {
+            const input = e.currentTarget.parentElement.querySelector('input');
+            input.type = input.type === 'password' ? 'text' : 'password';
+            e.currentTarget.querySelector('i').classList.toggle('fa-eye-slash');
+        };
+    });
+
     // 2. REFERENCIAS AL DOM
     const loginForm = document.querySelector('.auth-form');
     const modal = document.getElementById('modal-mensaje');
@@ -37,15 +46,12 @@ window.onload = () => {
     loginForm.addEventListener('submit', async (e) => {
         e.preventDefault(); 
 
-        // 1. Capturamos los datos limpios
         const valLogin = document.getElementById('login').value;
         const valPwd = document.getElementById('pwd').value;
         
-        // Validación segura del checkbox
         const checkboxEl = document.querySelector('input[name="recordar"]');
         const checkRecordar = checkboxEl ? checkboxEl.checked : false;
 
-        // 2. Preparamos el formato exacto que pide el servidor
         const dataForPHP = new URLSearchParams();
         dataForPHP.append('login', valLogin);
         dataForPHP.append('pwd', valPwd);
@@ -54,7 +60,7 @@ window.onload = () => {
         }
 
         try {
-            // 3. Petición con la cabecera correcta
+            // RUTA RESTFUL LIMPIA
             const response = await fetch('api/usuarios/login', {
                 method: 'POST',
                 headers: {
@@ -64,9 +70,7 @@ window.onload = () => {
             });
 
             const data = await response.json();
-            console.log("RESPUESTA DEL SERVIDOR:", data);
 
-            // 4. Gestionamos el resultado
             if (data.RESULTADO === 'OK') {
                 sessionStorage.clear();
                 localStorage.clear();

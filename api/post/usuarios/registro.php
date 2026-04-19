@@ -56,7 +56,7 @@ function subirFoto($FICHEROS, $LOGIN) {
   if($FICHEROS['size'] <= $TAM_MAX_ARCHIVO) {
     $ext = pathinfo($FICHEROS['name'], PATHINFO_EXTENSION); // extensión del fichero
     $NOMBRE_FICHERO = $LOGIN . '.' . $ext;
-    $upload_dir     = '../../../' . PATH_FOTOS . 'usuarios/';
+    $upload_dir     = __DIR__ . '/../../../fotos/usuarios/';
     $uploadfile     = $upload_dir . $NOMBRE_FICHERO; // path fichero destino
 
     // Se comprueba si la carpeta existe y tiene permisos de escritura
