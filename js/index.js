@@ -1,4 +1,4 @@
-window.onload = function() {
+window.onload = function () {
     // 1. GESTIÓN DE SESIÓN Y MENÚ
     var token = sessionStorage.getItem('token') || localStorage.getItem('token');
 
@@ -6,7 +6,7 @@ window.onload = function() {
     var liLogin = document.querySelector('a[href="login.html"]');
     var liRegistro = document.querySelector('a[href="registrar.html"]');
     var liNueva = document.querySelector('a[href="nueva.html"]');
-    
+
     // Para el Logout, buscamos el enlace que contenga el texto o la función
     var enlaces = document.querySelectorAll('.main-nav a');
     var liLogout = null;
@@ -32,7 +32,7 @@ window.onload = function() {
     var contenedor = document.getElementById('contenedor-actividades');
     var infoPaginacion = document.getElementById('info-paginacion');
     var btnMostrarMas = document.getElementById('btn-mostrar-mas');
-    
+
     var registroActual = 0;
     var cantidadPorPagina = 6;
     var totalActividades = 0;
@@ -46,10 +46,10 @@ window.onload = function() {
         var url = 'api/get/actividades.php?reg=' + registroActual + '&cant=' + cantidadPorPagina;
 
         fetch(url)
-            .then(function(res) {
+            .then(function (res) {
                 return res.json();
             })
-            .then(function(data) {
+            .then(function (data) {
                 if (data.RESULTADO === 'OK') {
                     totalActividades = data.TOTAL_COINCIDENCIAS;
                     renderizarActividades(data.FILAS);
@@ -57,23 +57,31 @@ window.onload = function() {
                     actualizarInterfazPaginacion();
                 }
             })
-            .catch(function(err) {
+            .catch(function (err) {
                 console.error("Error al cargar actividades:", err);
             });
     }
 
     function renderizarActividades(actividades) {
+        var contenedor = document.getElementById('contenedor-actividades');
         if (!contenedor) return;
-        actividades.forEach(function(act) {
+
+        actividades.forEach(function (act) {
             var article = document.createElement('article');
             article.className = 'activity-card';
-            article.innerHTML = 
+
+            // EL TOOLTIP SE METE AQUÍ: title="' + act.nombre + '"
+            article.innerHTML =
                 '<a href="actividad.html?id=' + act.id + '" class="img-link">' +
-                    '<img src="./fotos/actividades/' + act.foto + '" alt="' + act.nombre + '" class="activity-img">' +
+                '<img src="./fotos/actividades/' + act.foto + '" alt="' + act.nombre + '" class="activity-img">' +
                 '</a>' +
                 '<div class="activity-info">' +
-                    '<h3 class="activity-title"><a href="actividad.html?id=' + act.id + '">' + act.nombre + '</a></h3>' +
+                // EL TOOLTIP VA AQUÍ, EN EL TÍTULO, COMO PIDE LA PRÁCTICA
+                '<h3 class="activity-title" title="' + act.nombre + '">' +
+                '<a href="actividad.html?id=' + act.id + '">' + act.nombre + '</a>' +
+                '</h3>' +
                 '</div>';
+
             contenedor.appendChild(article);
         });
     }
@@ -90,7 +98,7 @@ window.onload = function() {
     }
 
     if (btnMostrarMas) {
-        btnMostrarMas.onclick = function() {
+        btnMostrarMas.onclick = function () {
             btnMostrarMas.disabled = true;
             btnMostrarMas.textContent = "Cargando...";
             cargarActividades(false);
